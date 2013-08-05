@@ -8,11 +8,15 @@ window.textanalyzer = (function () {
 	}
 	
 	function TextAnalyzer() {
-		this.list = []; // word list
+		this.list = []; // Word list
+		this.totalElementsSelected;
+		this.totalWordsProcessed = 0;
 	}
 	TextAnalyzer.prototype.processPage = function() {
 		var p_list = document.getElementsByTagName('p');
-		var length = p_list.length;
+		this.totalElementsSelected = p_list.length;
+		
+		var length = this.totalElementsSelected;
 		for (var i = 0; i < length; i++) {
 			var pit = p_list[i].innerText; // paragraph inner text
 			this.processString( pit.toLowerCase() );
@@ -29,6 +33,8 @@ window.textanalyzer = (function () {
  		}
 	}
 	TextAnalyzer.prototype.processWord = function(w) {
+ 		this.totalWordsProcessed = this.totalWordsProcessed + 1;
+ 		
  		var length = this.list.length;
  		for (var i = 0; i < length; i++) {
  			var word = this.list[i];
